@@ -5,6 +5,7 @@ const shipFactory = (length, id) => {
   let orientation = 'vertical';
 
   const getId = () => id;
+  const getLength = () => length;
 
   const changeCoordinates = (newX, newY) => {
     x = newX;
@@ -38,6 +39,7 @@ const shipFactory = (length, id) => {
   };
   return {
     getId,
+    getLength,
     changeCoordinates,
     getXCoord,
     getYCoord,
