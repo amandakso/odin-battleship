@@ -1,6 +1,8 @@
 const shipFactory = require('./ship');
 
 const gameboardFactory = () => {
+  const board = new Array(10).fill(null).map(() => new Array(10).fill(null));
+  const getBoard = () => board;
   const player1Ships = [];
   const player2Ships = [];
   const getPlayer1Ships = () => player1Ships;
@@ -20,10 +22,15 @@ const gameboardFactory = () => {
       player2Ships.push(battleship);
     }
   };
+  const receiveAttack = (xCoord, yCoord, playerTurn) => {
+    // 
+  }
   return {
+    getBoard,
     getPlayer1Ships,
     getPlayer2Ships,
     placeShip,
+    receiveAttack,
   };
 };
 

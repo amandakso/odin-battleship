@@ -2,7 +2,7 @@ const shipFactory = (length, id) => {
   const marks = [];
   let x = 0;
   let y = 0;
-  let orientation = "vertical";
+  let orientation = 'vertical';
 
   const getId = () => id;
 

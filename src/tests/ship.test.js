@@ -12,4 +12,4 @@ it('marks ship hits', () => {
   ship.setUp();
   ship.hit(2);
   expect(ship.getMarks()).toStrictEqual(['O', 'O', 'X']);
-})
+});
