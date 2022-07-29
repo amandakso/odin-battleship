@@ -34,3 +34,7 @@ it('receives attacks', () => {
   const ships = gameboard.getPlayer1Ships();
   expect(ships[0].isSunk()).toBe(true);
 });
+
+it('reports all ships sunk', () => {
+  expect(gameboard.allSunk(1)).toBe(true);
+});

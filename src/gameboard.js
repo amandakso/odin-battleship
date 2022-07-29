@@ -77,6 +77,24 @@ const gameboardFactory = () => {
       }
     }
   };
+  const allSunk = (playerTurn) => {
+    if (playerTurn === 1) {
+      for(let i = 0; i < player1Ships.length; i++) {
+        let answer = player1Ships[i].isSunk();
+        if (answer === false) {
+          return false;
+        }
+      }
+      return true;
+    }
+    for (let i = 0; i < player2Ships.length; i++) {
+      let answer = player2Ships[i].isSunk();
+      if (answer === false) {
+        return false;
+      }
+    }
+    return true;
+  };
   return {
     getPlayer1Board,
     getPlayer2Board,
@@ -84,6 +102,7 @@ const gameboardFactory = () => {
     getPlayer2Ships,
     placeShip,
     receiveAttack,
+    allSunk,
   };
 };
 
