@@ -2,10 +2,11 @@ const gameboardFactory = require('./gameboard');
 
 const playerFactory = () => {
   const playerGameboard = gameboardFactory();
+  const getGameboard = () => playerGameboard;
   let turn = true;
   const isTurn = () => turn;
   const changeTurn = () => {
-    turn ? false: true;
+    turn = !turn;
   };
   const launchAttack = (enemy, xCoord, yCoord) => {
     enemy.playerGameboard.receiveAttack(xCoord, yCoord);
