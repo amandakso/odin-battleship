@@ -18,13 +18,6 @@ it('places ship wit correct orientation', () => {
   expect(ships[0].getOrientation()).toBe('vertical');
 });
 
-it('receives attacks', () => {
-  gameboard.receiveAttack(2, 3, 2);
-  gameboard.receiveAttack(2, 4, 2);
-  const ships = gameboard.getPlayer1Ships();
-  expect(ships[0].isSunk()).toBe(true);
-});
-
 it('creates empty gameboard', () => {
   const player1Board = gameboard.getPlayer1Board();
   expect(player1Board[9][9]).toBe(null);
@@ -33,4 +26,11 @@ it('creates empty gameboard', () => {
 it('marks board when ship is placed', () => {
   const player1Board = gameboard.getPlayer1Board();
   expect(player1Board[2][3]).toBe(0);
+});
+
+it('receives attacks', () => {
+  gameboard.receiveAttack(2, 3, 1);
+  gameboard.receiveAttack(2, 4, 1);
+  const ships = gameboard.getPlayer1Ships();
+  expect(ships[0].isSunk()).toBe(true);
 });
