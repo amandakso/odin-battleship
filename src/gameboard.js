@@ -1,22 +1,18 @@
 const shipFactory = require('./ship');
 
 const gameboardFactory = () => {
-  const player1Board = new Array(10).fill(null).map(() => new Array(10).fill(null));
-  const getPlayer1Board = () => player1Board;
-  const player2Board = new Array(10).fill(null).map(() => new Array(10).fill(null));
-  const getPlayer2Board = () => player2Board;
-  const player1Ships = [];
-  const player2Ships = [];
-  const getPlayer1Ships = () => player1Ships;
-  const getPlayer2Ships = () => player2Ships;
-  const placeShip = (xCoord, yCoord, length, orientation, player) => {
-    const markBoard = (ship, board) => {
-      let x = ship.getXCoord();
-      let y = ship.getYCoord();
-      let id = ship.getId();
-      let shipLength = ship.getLength();
-      let orientation = ship.getOrientation();
-      if (orientation === 'vertical') {
+  const board = new Array(10).fill(null).map(() => new Array(10).fill(null));
+  const getBoard = () => board;
+  const ships = [];
+  const getShips = () => ships;
+  const placeShip = (xCoord, yCoord, length, orientation) => {
+    const markBoard = (ship) => {
+      const x = ship.getXCoord();
+      const y = ship.getYCoord();
+      const id = ship.getId();
+      const shipLength = ship.getLength();
+      const direction = ship.getOrientation();
+      if (direction === 'vertical') {
         for (let i = 0; i < shipLength; i++) {
           board[x][y + i] = id;
         }
@@ -26,69 +22,33 @@ const gameboardFactory = () => {
         }
       }
     };
-    if (player === 1) {
-      let id = player1Ships.length;
-      let battleship = shipFactory(length, id);
-      battleship.changeCoordinates(xCoord, yCoord);
-      battleship.changeOrientation(orientation);
-      markBoard(battleship, player1Board);
-      player1Ships.push(battleship);
-    } else if (player === 2) {
-      let id = player2Ships.length;
-      let battleship = shipFactory(length, id);
-      battleship.changeCoordinates(xCoord, yCoord);
-      battleship.changeOrientation(orientation);
-      markBoard(battleship, player2Board);
-      player2Ships.push(battleship);
-    }
+    const id = ships.length;
+    const battleship = shipFactory(length, id);
+    battleship.changeCoordinates(xCoord, yCoord);
+    battleship.changeOrientation(orientation);
+    markBoard(battleship);
+    ships.push(battleship);
   };
-  const receiveAttack = (xCoord, yCoord, playerTurn) => {
-    if (playerTurn === 1) {
-      let spot = player1Board[xCoord][yCoord];
-      if (spot === null) {
-        player1Board[xCoord][yCoord] = 'miss';
-      } else {
-        let direction = player1Ships[spot].getOrientation();
-        if (direction === 'vertical') {
-          let x = player1Ships[spot].getXCoord();
-          let index = xCoord - x;
-          player1Ships[spot].hit(index);
-        } else {
-          let y = player1Ships[spot].getYCoord();
-          let index = yCoord - y;
-          player1Ships[spot].hit(index);
-        }
-      }
+  const receiveAttack = (xCoord, yCoord) => {
+    const location = board[xCoord][yCoord];
+    if (location === null) {
+      board[xCoord][yCoord] = 'miss';
     } else {
-      let spot = player2Board[xCoord][yCoord];
-      if (spot === null) {
-        player2Board[xCoord][yCoord] = 'miss';
+      const direction = ships[location].getOrientation();
+      if (direction === 'vertical') {
+        const x = ships[location].getXCoord();
+        const index = xCoord - x;
+        ships[location].hit(index);
       } else {
-        let direction = player2Ships[spot].getOrientation();
-        if (direction === 'vertical') {
-          let x = player2Ships[spot].getXCoord();
-          let index = xCoord - x;
-          player2Ships[spot].hit(index);
-        } else {
-          let y = player2Ships[spot].getYCoord();
-          let index = yCoord - y;
-          player2Ships[spot].hit(index);
-        }
+        const y = ships[location].getYCoord();
+        const index = yCoord - y;
+        ships[location].hit(index);
       }
     }
   };
-  const allSunk = (playerTurn) => {
-    if (playerTurn === 1) {
-      for(let i = 0; i < player1Ships.length; i++) {
-        let answer = player1Ships[i].isSunk();
-        if (answer === false) {
-          return false;
-        }
-      }
-      return true;
-    }
-    for (let i = 0; i < player2Ships.length; i++) {
-      let answer = player2Ships[i].isSunk();
+  const allSunk = () => {
+    for (let i = 0; i < ships.length; i++) {
+      const answer = ships[i].isSunk();
       if (answer === false) {
         return false;
       }
@@ -96,10 +56,8 @@ const gameboardFactory = () => {
     return true;
   };
   return {
-    getPlayer1Board,
-    getPlayer2Board,
-    getPlayer1Ships,
-    getPlayer2Ships,
+    getBoard,
+    getShips,
     placeShip,
     receiveAttack,
     allSunk,
