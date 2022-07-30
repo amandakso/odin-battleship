@@ -1,0 +1,17 @@
+.square {
+    height: 50px;
+    width: 50px;
+    border: 2px solid black;
+}
+
+.boards {
+    display: grid;
+    gap: 50px;
+    grid-auto-flow: column;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 550px;
+}
