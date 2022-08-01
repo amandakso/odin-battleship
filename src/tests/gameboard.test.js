@@ -22,7 +22,7 @@ it('places ship wit correct orientation', () => {
 
 it('creates empty gameboard', () => {
   const player1Board = player1Gameboard.getBoard();
-  expect(player1Board[9][9]).toBe(null);
+  expect(player1Board[9][9]).toBe('none');
 });
 
 it('marks board when ship is placed', () => {
