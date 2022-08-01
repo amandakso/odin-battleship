@@ -19,6 +19,7 @@ const playerFactory = () => {
     isTurn,
     changeTurn,
     launchAttack,
+    getGameboard,
   };
 };
 

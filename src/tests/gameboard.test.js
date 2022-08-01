@@ -1,6 +1,8 @@
 const gameboardFactory = require('../gameboard');
+const playerFactory = require('../player');
 
-const player1Gameboard = gameboardFactory();
+const player1 = playerFactory();
+const player1Gameboard = player1.getGameboard();
 player1Gameboard.placeShip(2, 3, 2, 'vertical');
 
 it('places ship at correct x coordinates', () => {

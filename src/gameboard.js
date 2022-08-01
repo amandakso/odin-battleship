@@ -1,7 +1,7 @@
 const shipFactory = require('./ship');
 
 const gameboardFactory = () => {
-  const board = new Array(10).fill(null).map(() => new Array(10).fill(null));
+  const board = new Array(10).fill('none').map(() => new Array(10).fill('none'));
   const getBoard = () => board;
   const ships = [];
   const getShips = () => ships;
@@ -31,7 +31,7 @@ const gameboardFactory = () => {
   };
   const receiveAttack = (xCoord, yCoord) => {
     const location = board[xCoord][yCoord];
-    if (location === null) {
+    if (location === "none") {
       board[xCoord][yCoord] = 'miss';
     } else {
       const direction = ships[location].getOrientation();

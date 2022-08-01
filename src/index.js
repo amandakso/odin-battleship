@@ -1,4 +1,6 @@
 import './style.css';
-import { displayGameboards } from './game';
+import { startGame } from './game';
 
-displayGameboards();
+const newGame = startGame();
+
+newGame.renderBoards();
