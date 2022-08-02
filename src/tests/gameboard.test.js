@@ -32,7 +32,7 @@ it('marks board when ship is placed', () => {
 
 it('receives attacks', () => {
   player1Gameboard.receiveAttack(2, 3);
-  player1Gameboard.receiveAttack(2, 4);
+  player1Gameboard.receiveAttack(3, 3);
   const ships = player1Gameboard.getShips();
   expect(ships[0].isSunk()).toBe(true);
 });
