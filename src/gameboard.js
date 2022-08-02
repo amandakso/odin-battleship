@@ -14,11 +14,11 @@ const gameboardFactory = () => {
       const direction = ship.getOrientation();
       if (direction === 'vertical') {
         for (let i = 0; i < shipLength; i++) {
-          board[x][y + i] = id;
+          board[x + i][y] = id;
         }
       } else {
         for (let i = 0; i < shipLength; i++) {
-          board[x + i][y] = id;
+          board[x][y + i] = id;
         }
       }
     };

@@ -17,6 +17,17 @@ const setUpGame = () => {
 };
 
 const startGame = (player1, player2) => {
+  const player1Gameboard = player1.getGameboard();
+  const player2Gameboard = player2.getGameboard();
+  do {
+    let currentTurn = 1;
+    if (player1.isTurn === true) {
+      currentTurn = 1;
+    } else {
+      // do player2 turn stuff
+    }
+  }
+  while (player1Gameboard.allSunk() === false && player2Gameboard.allSunk() === false);
   // while there is no loser...
   // switch turns
   // while player1 turn is true

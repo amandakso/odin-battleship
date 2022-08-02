@@ -19,3 +19,11 @@
     flex-wrap: wrap;
     width: 550px;
 }
+
+.miss {
+    background-color: red;
+}
+
+.hit {
+    background-color: green;
+}
