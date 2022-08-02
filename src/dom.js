@@ -46,19 +46,26 @@ const renderBoards = (board1, board2) => {
   });
 
   let player2Board = board2;
-  let p2Board = []
+  let p2Board = [];
   for (let i = 0; i < numberOfSquares; i++) {
     for (let j = 0; j < numberOfSquares; j++) {
       p2Board.push(player2Board[i][j]);
     }
   }
-
   let twosquares = document.querySelectorAll('.two');
   twosquares.forEach((two) => {
     two.classList.add(p2Board[0]);
     p2Board.shift();
   });
 };
+
+const deleteBoards = () => {
+  const boards = document.querySelector('.boards');
+  while (boards.firstChild) {
+    boards.removeChild(boards.firstChild);
+  }
+};
+
 const renderButtons = (player1, player2) => {
   let oneSquares = document.querySelectorAll('.one');
   let player1Gameboard = player1.getGameboard();
@@ -71,14 +78,14 @@ const renderButtons = (player1, player2) => {
   let player2Gameboard = player2.getGameboard();
   twoSquares.forEach((twosquare) => {
     twosquare.addEventListener('click', () => {
-      let status = player2Gameboard.receiveAttack(twosquare.dataset.x, twosquare.dataset.y);
-      if (status === 'miss') {
-        twosquare.classList.add('miss');
-      } else if (status === 'hit') {
-        twosquare.classList.add('hit');
-      }
+      player2Gameboard.receiveAttack(twosquare.dataset.x, twosquare.dataset.y);
+      deleteBoards();
+      renderBoards(player1Gameboard.getBoard(), player2Gameboard.getBoard());
+      renderButtons(player1, player2);
+      /*
       player2.changeTurn();
       player1.changeTurn();
+      */
       // check if all of player2 ships sunk
     });
   });

@@ -20,7 +20,6 @@ const startGame = (player1, player2) => {
   const player1Gameboard = player1.getGameboard();
   const player2Gameboard = player2.getGameboard();
 
-  console.log(player1.isTurn());
 /*
   do {
     let currentTurn = 1;
