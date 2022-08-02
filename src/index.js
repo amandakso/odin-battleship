@@ -1,4 +1,4 @@
 import './style.css';
-import { setUpGame } from './game';
+import { setUpGame, startGame } from './game';
 
-const newGame = setUpGame();
+setUpGame();

@@ -41,7 +41,15 @@ const renderButtons = (player1, player2) => {
   let player2Gameboard = player2.getGameboard();
   twoSquares.forEach((twosquare) => {
     twosquare.addEventListener('click', () => {
-      player2Gameboard.receiveAttack(twosquare.dataset.x, twosquare.dataset.y);
+      let status = player2Gameboard.receiveAttack(twosquare.dataset.x, twosquare.dataset.y);
+      if (status === 'miss') {
+        twosquare.classList.add('miss');
+      } else if (status ==='hit') {
+        twosquare.classList.add('hit');
+      }
+      player2.changeTurn();
+      player1.changeTurn();
+      // check if all of player2 ships sunk
     });
   });
 };

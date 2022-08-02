@@ -33,16 +33,19 @@ const gameboardFactory = () => {
     const location = board[xCoord][yCoord];
     if (location === "none") {
       board[xCoord][yCoord] = 'miss';
+      return 'miss';
     } else {
       const direction = ships[location].getOrientation();
       if (direction === 'vertical') {
         const x = ships[location].getXCoord();
         const index = xCoord - x;
         ships[location].hit(index);
+        return 'hit';
       } else {
         const y = ships[location].getYCoord();
         const index = yCoord - y;
         ships[location].hit(index);
+        return 'hit';
       }
     }
   };
