@@ -1,6 +1,6 @@
 const numberOfSquares = 10; // number of squares in one row
 
-const renderBoards = () => {
+const renderBoards = (board1, board2) => {
   const boards = document.querySelector('.boards');
   let div1 = document.createElement('div');
   div1.classList.add('board');
@@ -16,6 +16,7 @@ const renderBoards = () => {
       div1.appendChild(square);
     }
   }
+
   for (let i = 0; i < numberOfSquares; i++) {
     for (let j = 0; j < numberOfSquares; j++) {
       let square = document.createElement('div');
@@ -26,8 +27,37 @@ const renderBoards = () => {
       div2.appendChild(square);
     }
   }
+
   boards.appendChild(div1);
   boards.appendChild(div2);
+
+  let player1Board = board1;
+  let p1Board = []
+  for (let i = 0; i < numberOfSquares; i++) {
+    for (let j = 0; j < numberOfSquares; j++) {
+      p1Board.push(player1Board[i][j]);
+    }
+  }
+
+  let onesquares = document.querySelectorAll('.one');
+  onesquares.forEach((one) => {
+    one.classList.add(p1Board[0]);
+    p1Board.shift();
+  });
+
+  let player2Board = board2;
+  let p2Board = []
+  for (let i = 0; i < numberOfSquares; i++) {
+    for (let j = 0; j < numberOfSquares; j++) {
+      p2Board.push(player2Board[i][j]);
+    }
+  }
+
+  let twosquares = document.querySelectorAll('.two');
+  twosquares.forEach((two) => {
+    two.classList.add(p2Board[0]);
+    p2Board.shift();
+  });
 };
 const renderButtons = (player1, player2) => {
   let oneSquares = document.querySelectorAll('.one');
@@ -44,7 +74,7 @@ const renderButtons = (player1, player2) => {
       let status = player2Gameboard.receiveAttack(twosquare.dataset.x, twosquare.dataset.y);
       if (status === 'miss') {
         twosquare.classList.add('miss');
-      } else if (status ==='hit') {
+      } else if (status === 'hit') {
         twosquare.classList.add('hit');
       }
       player2.changeTurn();

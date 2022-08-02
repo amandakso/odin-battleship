@@ -31,3 +31,4 @@ p2Gameboard.placeShip(4, 1, 3, 'horizontal');
 p1Gameboard.placeShip(7, 3, 2, 'vertical');
 p2Gameboard.placeShip(7, 3, 2, 'vertical');
 
+startGame(p1, p2);

@@ -9,16 +9,18 @@ const playerFactory = () => {
     turn = !turn;
   };
   const launchAttack = (enemy, xCoord, yCoord) => {
-    enemy.playerGameboard.receiveAttack(xCoord, yCoord);
+    enemy.receiveAttack(xCoord, yCoord);
   };
   // for computer attacks
   const getRandomCoord = () => {
-    Math.floor(Math.random() * 10);
+    const num = Math.floor(Math.random() * 10);
+    return num;
   };
   return {
     isTurn,
     changeTurn,
     launchAttack,
+    getRandomCoord,
     getGameboard,
   };
 };

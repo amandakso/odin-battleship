@@ -8,7 +8,7 @@ const setUpGame = () => {
   player2.changeTurn();
   const getPlayer1 = () => player1;
   const getPlayer2 = () => player2;
-  renderBoards();
+  renderBoards(player1.getGameboard().getBoard(), player2.getGameboard().getBoard());
   renderButtons(player1, player2);
   return {
     getPlayer1,
@@ -19,12 +19,29 @@ const setUpGame = () => {
 const startGame = (player1, player2) => {
   const player1Gameboard = player1.getGameboard();
   const player2Gameboard = player2.getGameboard();
+
+  console.log(player1.isTurn());
+/*
   do {
     let currentTurn = 1;
-    if (player1.isTurn === true) {
+    if (player1.isTurn() === true) {
       currentTurn = 1;
     } else {
-      // do player2 turn stuff
+      console.log("hi");
+      /*
+      let x = player2.getRandomCoord();
+      let y = player2.getRandomCoord();
+      let status = player2.launchAttack(player1Gameboard, x, y);
+      if (status === 'miss') {
+        // query onesquare that has coordinates, mark as miss
+        console.log("boo");
+      } else if (status === 'hit') {
+        // query onesquare that has coordinates, mark as hit
+        console.log("yay");
+      }
+      player2.changeTurn();
+      player1.changeTurn();
+      
     }
   }
   while (player1Gameboard.allSunk() === false && player2Gameboard.allSunk() === false);
@@ -39,6 +56,7 @@ const startGame = (player1, player2) => {
   // receive attack
   // change turns
   //announce winner
-}
+*/
+};
 
 export { setUpGame, startGame };
