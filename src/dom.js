@@ -79,16 +79,44 @@ const renderButtons = (player1, player2) => {
   twoSquares.forEach((twosquare) => {
     twosquare.addEventListener('click', () => {
       player2Gameboard.receiveAttack(twosquare.dataset.x, twosquare.dataset.y);
+      // check game status
+      if (player2Gameboard.allSunk()) {
+        // gameover player 1 wins
+        console.log('player 1 wins');
+        console.log(player1.isTurn());
+        console.log(player2.isTurn());
+        return;
+      }
+      // changeTurns
+      player2.changeTurn();
+      player1.changeTurn();
+      deleteBoards()
+      let x = player2.getRandomCoord();
+      let y = player2.getRandomCoord();
+      player2.launchAttack(player1Gameboard, x, y);
+      //check game status
+      if (player1Gameboard.allSunk()) {
+        // gameover player 2 wins
+        console.log('player 2 wins');
+        console.log(player1.isTurn());
+        console.log(player2.isTurn());
+        return;
+      }
+      player2.changeTurn();
+      player1.changeTurn();
       deleteBoards();
       renderBoards(player1Gameboard.getBoard(), player2Gameboard.getBoard());
       renderButtons(player1, player2);
-      /*
-      player2.changeTurn();
-      player1.changeTurn();
-      */
-      // check if all of player2 ships sunk
+      // if not win:
+      // change turns
+      // check if player 2 turn
+      // generate random attack
+        // check game status
+        // if not win:
+          // change turns
+        //if win: show game over
     });
   });
 };
 
-export { renderBoards, renderButtons };
+export { renderBoards, deleteBoards, renderButtons };
