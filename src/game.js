@@ -3,8 +3,8 @@ import { renderBoards, deleteBoards, renderButtons } from './dom';
 const playerFactory = require('./player');
 
 const setUpGame = () => {
-  const player1 = playerFactory();
-  const player2 = playerFactory(); // cpu
+  const player1 = playerFactory('Player 1');
+  const player2 = playerFactory('Computer'); // cpu
   player2.changeTurn();
   const getPlayer1 = () => player1;
   const getPlayer2 = () => player2;
