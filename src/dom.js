@@ -78,7 +78,11 @@ const renderButtons = (player1, player2) => {
   let player2Gameboard = player2.getGameboard();
   twoSquares.forEach((twosquare) => {
     twosquare.addEventListener('click', () => {
-      player2Gameboard.receiveAttack(twosquare.dataset.x, twosquare.dataset.y);
+      const attack2 = player2Gameboard.receiveAttack(twosquare.dataset.x, twosquare.dataset.y);
+      // check that attack is valid
+      if (attack2 === 'invalid') {
+        return;
+      }
       // check game status
       if (player2Gameboard.allSunk()) {
         // gameover player 1 wins
@@ -90,10 +94,16 @@ const renderButtons = (player1, player2) => {
       // changeTurns
       player2.changeTurn();
       player1.changeTurn();
-      deleteBoards()
+      deleteBoards();
       let x = player2.getRandomCoord();
       let y = player2.getRandomCoord();
-      player2.launchAttack(player1Gameboard, x, y);
+      let attack1 = player2.launchAttack(player1Gameboard, x, y);
+      // check if attack is valid
+      while (attack1 === 'invalid') {
+        x = player2.getRandomCoord();
+        y = player2.getRandomCoord();
+        attack1 = player2.launchAttack(player1Gameboard, x, y);
+      }
       //check game status
       if (player1Gameboard.allSunk()) {
         // gameover player 2 wins

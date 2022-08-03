@@ -31,22 +31,29 @@ const gameboardFactory = () => {
   };
   const receiveAttack = (xCoord, yCoord) => {
     const location = board[xCoord][yCoord];
+    if (location === 'miss' || location === 'hit') {
+      return ('invalid');
+    }
     if (location === 'none') {
       board[xCoord][yCoord] = 'miss';
-    } else {
-      const direction = ships[location].getOrientation();
-      if (direction === 'vertical') {
-        board[xCoord][yCoord] = 'hit';
-        const x = ships[location].getXCoord();
-        const index = xCoord - x;
-        ships[location].hit(index);
-      } else if (direction === 'horizontal') {
-        board[xCoord][yCoord] = 'hit';
-        const y = ships[location].getYCoord();
-        const index = yCoord - y;
-        ships[location].hit(index);
-      }
+      return ('valid');
     }
+    const direction = ships[location].getOrientation();
+    if (direction === 'vertical') {
+      board[xCoord][yCoord] = 'hit';
+      const x = ships[location].getXCoord();
+      const index = xCoord - x;
+      ships[location].hit(index);
+      return ('valid');
+    }
+    if (direction === 'horizontal') {
+      board[xCoord][yCoord] = 'hit';
+      const y = ships[location].getYCoord();
+      const index = yCoord - y;
+      ships[location].hit(index);
+      return ('valid');
+    }
+    return ('invalid');
   };
   const allSunk = () => {
     for (let i = 0; i < ships.length; i++) {
