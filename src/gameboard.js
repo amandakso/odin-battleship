@@ -5,6 +5,46 @@ const gameboardFactory = () => {
   const getBoard = () => board;
   const ships = [];
   const getShips = () => ships;
+  // check ships don't overlap
+  const checkOverlap = (xCoord, yCoord, length, orientation) => {
+    const check = [];
+    if (orientation === 'vertical') {
+      for (let i = 0; i < length; i++) {
+        check.push(board[xCoord + i][yCoord]);
+      }
+    } else {
+      for (let i = 0; i < length; i++) {
+        check.push(board[xCoord][yCoord + i]);
+      }
+    }
+    for (let i = 0; i < check.length; i++) {
+      if (check[i] !== 'none') {
+        return false;
+      }
+    }
+    return true;
+  };
+  // check ships are inbound
+  const checkBounds = (xCoord, yCoord, length, orientation) => {
+    const check = [];
+    if (orientation === 'vertical') {
+      for (let i = 0; i < length; i++) {
+        check.push(xCoord + i);
+      }
+      check.push(yCoord);
+    } else {
+      for (let i = 0; i < length; i++) {
+        check.push(yCoord + i);
+      }
+      check.push(xCoord);
+    }
+    for (let i = 0; i < check.length; i++) {
+      if (check[i] > 9 || check[i] < 0) {
+        return false;
+      }
+    }
+    return true;
+  };
   const placeShip = (xCoord, yCoord, length, orientation) => {
     const markBoard = (ship) => {
       const x = ship.getXCoord();
@@ -22,6 +62,14 @@ const gameboardFactory = () => {
         }
       }
     };
+    let check = checkOverlap(xCoord, yCoord, length, orientation);
+    if (check === false) {
+      return;
+    }
+    check = checkBounds(xCoord, yCoord, length, orientation);
+    if (check === false) {
+      return;
+    }
     const id = ships.length;
     const battleship = shipFactory(length, id);
     battleship.changeCoordinates(xCoord, yCoord);
