@@ -1,6 +1,22 @@
-const playerFactor = require('./player');
+const playerFactory = require('./player');
 
 const numberOfSquares = 10; // number of squares in one row
+
+const setUpBoard = () => {
+  const setup = document.querySelector('.setup');
+  const board = document.createElement('div');
+  board.classList.add('board');
+  for (let i = 0; i < numberOfSquares; i++) {
+    for (let j = 0; j < numberOfSquares; j++) {
+      let square = document.createElement('div');
+      square.classList.add('square');
+      square.dataset.x = i;
+      square.dataset.y = j;
+      board.appendChild(square);
+    }
+  }
+  setup.appendChild(board);
+};
 
 const renderBoards = (board1, board2) => {
   const boards = document.querySelector('.boards');
@@ -131,4 +147,4 @@ const renderButtons = (player1, player2) => {
   });
 };
 
-export { renderBoards, deleteBoards, renderButtons };
+export { setUpBoard, renderBoards, deleteBoards, renderButtons };

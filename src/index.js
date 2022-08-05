@@ -1,5 +1,6 @@
 import './style.css';
 import { setUpGame, startGame } from './game';
+import { makeDraggable, setUpBoard } from './dom';
 
 const gameboardFactory = require('./gameboard');
 
@@ -27,4 +28,6 @@ p1Gameboard.placeShip(4, 1, 3, 'horizontal');
 // Destroyer (2)
 p1Gameboard.placeShip(7, 3, 2, 'vertical');
 
-startGame(p1, p2);
+// setUpBoard();
+
+// startGame(p1, p2);
