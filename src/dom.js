@@ -2,16 +2,176 @@ const playerFactory = require('./player');
 
 const numberOfSquares = 10; // number of squares in one row
 
-const setUpBoard = () => {
+const setUpBoard = (player) => {
   const setup = document.querySelector('.setup');
+  const btn = document.createElement('button');
+  btn.classList.add('axis');
+  btn.innerText = 'X-AXIS';
+  btn.value = 'x';
+  btn.addEventListener('click', () => {
+    const axis = btn.value === 'x' ? 'y' : 'x';
+    if (axis === 'x') {
+      btn.innerText = 'X-AXIS';
+      btn.value = axis;
+    } else {
+      btn.innerText = 'Y-AXIS';
+      btn.value = axis;
+    }
+  });
+  setup.appendChild(btn);
   const board = document.createElement('div');
   board.classList.add('board');
+  let counter = 0;
   for (let i = 0; i < numberOfSquares; i++) {
     for (let j = 0; j < numberOfSquares; j++) {
       let square = document.createElement('div');
       square.classList.add('square');
       square.dataset.x = i;
       square.dataset.y = j;
+      square.classList.add(`s${i}${j}`);
+      square.addEventListener('mouseover', () => {
+        let x = (square.dataset.x);
+        let y = (square.dataset.y);
+        let length;
+        switch (counter) {
+          case 0:
+            length = 5;
+            break;
+          case 1:
+            length = 4;
+            break;
+          case 2:
+            length = 3;
+            break;
+          case 3:
+            length = 3;
+            break;
+          case 4:
+            length = 2;
+            break;
+          default:
+            length = 5;
+            return;
+        };
+        if (btn.value === 'x') { // horizontal
+          for (let i = 0; i < length; i++) {
+            let coordinates = document.querySelector(`.s${x}${parseInt(y) + i}`);
+            if ((parseInt(y) + i) >= 0 && parseInt(y) + i <= 9) {
+              coordinates.classList.add('shade');
+            }
+          }
+        } else {
+          for (let i = 0; i < length; i++) {
+            let coordinates = document.querySelector(`.s${parseInt(x)+ i}${y}`);
+            if ((parseInt(x) + i) >= 0 && parseInt(x) + i <= 9) {
+              coordinates.classList.add('shade');
+            }
+          }
+        }
+      });
+      square.addEventListener('mouseleave', () => {
+        let x = (square.dataset.x);
+        let y = (square.dataset.y);
+        let length;
+        switch (counter) {
+          case 0:
+            length = 5;
+            break;
+          case 1:
+            length = 4;
+            break;
+          case 2:
+            length = 3;
+            break;
+          case 3:
+            length = 3;
+            break;
+          case 4:
+            length = 2;
+            break;
+          default:
+            length = 0;
+            return;
+        };
+        if (btn.value === 'x') { // horizontal
+          for (let i = 0; i < length; i++) {
+            let coordinates = document.querySelector(`.s${x}${parseInt(y) + i}`);
+            if ((parseInt(y) + i) >= 0 && parseInt(y) + i <= 9) {
+              coordinates.classList.remove('shade');
+            }
+          }
+        } else {
+          for (let i = 0; i < length; i++) {
+            let coordinates = document.querySelector(`.s${parseInt(x)+ i}${y}`);
+            if ((parseInt(x) + i) >= 0 && parseInt(x) + i <= 9) {
+              coordinates.classList.remove('shade');
+            }
+          }
+        }
+      });
+      square.addEventListener('click', () => {
+        let x = (square.dataset.x);
+        let y = (square.dataset.y);
+        let length;
+        switch (counter) {
+          case 0:
+            length = 5;
+            break;
+          case 1:
+            length = 4;
+            break;
+          case 2:
+            length = 3;
+            break;
+          case 3:
+            length = 3;
+            break;
+          case 4:
+            length = 2;
+            break;
+          default:
+            length = 0;
+            return;
+        }
+        let gameboard = player.getGameboard();
+        let orientation;
+        if (btn.value === 'x') {
+          orientation = 'horizontal';
+        } else {
+          orientation = 'vertical';
+        }
+        let check = gameboard.placeShip(parseInt(x), parseInt(y), length, orientation);
+        if (check === false) {
+          return;
+        }
+        if (btn.value === 'x') { // horizontal
+          for (let k = 0; k < length; k++) {
+            let coordinates = document.querySelector(`.s${x}${parseInt(y) + k}`);
+            if ((parseInt(y) + k) >= 0 && parseInt(y) + k <= 9) {
+              coordinates.classList.add('color');
+            }
+          }
+        } else {
+          for (let k = 0; k < length; k++) {
+            let coordinates = document.querySelector(`.s${parseInt(x)+ k}${y}`);
+            if ((parseInt(x) + k) >= 0 && parseInt(x) + k <= 9) {
+              coordinates.classList.add('color');
+            }
+          }
+        }
+        counter++;
+        if (counter >= 5) {
+          let setup = document.querySelector('.setup');
+          let ships = document.querySelector('.board');
+          let btns = document.querySelector('.gameBtns');
+          let axis = document.querySelector('.axis');
+          setup.removeChild(axis);
+          btns.style.display = 'block';
+          while (ships.firstChild) {
+            ships.removeChild(ships.firstChild)
+          }
+        }
+      });
       board.appendChild(square);
     }
   }

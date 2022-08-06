@@ -14,10 +14,22 @@
     grid-auto-flow: column;
 }
 
+.gameBtns {
+    display: none;
+}
+
 .board {
     display: flex;
     flex-wrap: wrap;
     width: 550px;
+}
+
+.shade {
+    background-color: grey;
+}
+
+.color {
+    background-color: grey;
 }
 
 .miss {
