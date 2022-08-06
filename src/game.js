@@ -13,8 +13,8 @@ const setUpGame = () => {
   player2.changeTurn();
   const getPlayer1 = () => player1;
   const getPlayer2 = () => player2;
-  // name event listener doesn't reset with reset button
   const info = document.querySelector('.player1Info');
+  info.style.display = 'inline-block';
   const para = document.createElement('p');
   para.innerText = "Player Name: ";
   info.appendChild(para);
@@ -34,6 +34,8 @@ const setUpGame = () => {
     }
     setUpBoard(player1);
   });
+  const gameBtns = document.querySelector('.gameBtns');
+  gameBtns.style.display = 'none';
   const startBtn = document.querySelector('.startBtn');
   const start = document.createElement('button');
   start.innerText = 'Start Game';

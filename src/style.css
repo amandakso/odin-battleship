@@ -14,10 +14,6 @@
     grid-auto-flow: column;
 }
 
-.gameBtns {
-    display: none;
-}
-
 .board {
     display: flex;
     flex-wrap: wrap;
