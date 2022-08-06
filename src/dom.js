@@ -210,7 +210,7 @@ const renderBoards = (board1, board2) => {
   boards.appendChild(div2);
 
   let player1Board = board1;
-  let p1Board = []
+  let p1Board = [];
   for (let i = 0; i < numberOfSquares; i++) {
     for (let j = 0; j < numberOfSquares; j++) {
       p1Board.push(player1Board[i][j]);
@@ -219,6 +219,9 @@ const renderBoards = (board1, board2) => {
 
   let onesquares = document.querySelectorAll('.one');
   onesquares.forEach((one) => {
+    if (p1Board[0] !== 'none' && p1Board[0] !== 'hit' && p1Board[0] !== 'miss') {
+      one.classList.add('color');
+    };
     one.classList.add(p1Board[0]);
     p1Board.shift();
   });
